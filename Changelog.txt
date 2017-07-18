@@ -1,0 +1,14 @@
+Overview of Changes in NDS 1.0.0
+================================
+
+* CMake project infrastructure was created
+
+* Implemented the basic headers and sources of the library
+
+* Written the first functions of the NdsVector data structure
+
+* Added two basic usage examples for the NdsVector
+
+* Added automated testing support using CTest
+
+* Written some tests for the NdsVector

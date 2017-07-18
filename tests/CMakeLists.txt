@@ -1,0 +1,21 @@
+# create an executable that runs the tests designed for the NdsVector data structure
+add_executable(ndsvectortests ndsvectortests.c)
+set_target_properties(ndsvectortests PROPERTIES COMPILE_FLAGS "-std=c99 -O3 -Werror -pedantic -Wall -Wextra -Wdeclaration-after-statement -Wshadow -Wpointer-arith -Wcast-qual")
+target_link_libraries(ndsvectortests nds)
+
+# define unit tests for the NdsVector
+add_test(NAME test_nds_vector_new_is_null COMMAND ndsvectortests 1)
+add_test(NAME test_nds_vector_new_is_ok COMMAND ndsvectortests 2)
+add_test(NAME test_nds_vector_new_with_capacity_is_null_1 COMMAND ndsvectortests 3)
+add_test(NAME test_nds_vector_new_with_capacity_is_null_2 COMMAND ndsvectortests 4)
+add_test(NAME test_nds_vector_new_with_capacity_is_ok COMMAND ndsvectortests 5)
+add_test(NAME test_nds_vector_destroy_frees_memory COMMAND ndsvectortests 6)
+add_test(NAME test_nds_vector_is_empty_invalid_1 COMMAND ndsvectortests 7)
+add_test(NAME test_nds_vector_is_empty_invalid_2 COMMAND ndsvectortests 8)
+add_test(NAME test_nds_vector_is_empty_initial COMMAND ndsvectortests 9)
+add_test(NAME test_nds_vector_size_is_invalid_1 COMMAND ndsvectortests 10)
+add_test(NAME test_nds_vector_size_is_invalid_2 COMMAND ndsvectortests 11)
+add_test(NAME test_nds_vector_size_initial COMMAND ndsvectortests 12)
+add_test(NAME test_nds_vector_capacity_is_invalid_1 COMMAND ndsvectortests 13)
+add_test(NAME test_nds_vector_capacity_is_invalid_2 COMMAND ndsvectortests 14)
+add_test(NAME test_nds_vector_capacity_initial COMMAND ndsvectortests 15)
