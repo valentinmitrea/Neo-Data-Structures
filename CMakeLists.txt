@@ -4,7 +4,7 @@ project(Neo-Data-Structures C)
 # set the version of the project
 set(Neo-Data-Structures_VERSION_MAJOR 1)
 set(Neo-Data-Structures_VERSION_MINOR 0)
-set(Neo-Data-Structures_VERSION_PATCH 0)
+set(Neo-Data-Structures_VERSION_PATCH 1)
 
 # configure options and build mode for the project
 option(BUILD_TESTS "Build tests for the library" OFF)

@@ -12,5 +12,5 @@ if(UNIX)
 	set(LIB_DIRECTORY "/usr/lib/")
 endif(UNIX)
 
-install(FILES ${CMAKE_SOURCE_DIR}/include/nds/nds.h ${CMAKE_SOURCE_DIR}/include/nds/ndsvector.h DESTINATION ${INCLUDE_DIRECTORY})
+install(FILES ${CMAKE_SOURCE_DIR}/include/nds/nds.h ${CMAKE_SOURCE_DIR}/include/nds/ndsutils.h ${CMAKE_SOURCE_DIR}/include/nds/ndsvector.h DESTINATION ${INCLUDE_DIRECTORY})
 install(TARGETS nds DESTINATION ${LIB_DIRECTORY})

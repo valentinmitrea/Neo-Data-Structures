@@ -19,23 +19,26 @@
  */
 
 /**
- * Neo Data Structures is a library written in C that implements well-known
- * generic data structures such as vector, linked list, queue, stack and many others.
+ * This file contains various utilities needed by the NDS library.
  *
- * @website    http://www.mival.com/nds
- * @version    1.0.1
- * @date       23 February 2018
- *
- * For more details, updates, tutorials and examples see the website listed
- * above or the official repository available at the following address:
- * <https://github.com/valentinmitrea/Neo-Data-Structures>
+ * @author      Valentin Gabriel Mitrea <mitrea.valentin@gmail.com>
+ * @created     23 February 2018
+ * @modified    23 February 2018
  */
 
-#ifndef __NDS_H__
-#define __NDS_H__
+#ifndef __NDS_UTILS_H__
+#define __NDS_UTILS_H__
 
-/* include whole library */
-#include <nds/ndsvector.h>
 
-#endif /* __NDS_H__ */
+enum NdsStatus
+{
+	NDS_OK                  = 0,
+	NDS_ERROR               = 1,
+	NDS_INVALID_PARAM_ERROR = 2,
+	NDS_MEM_ALLOC_ERROR     = 3
+};
 
+typedef enum NdsStatus NdsStatus;
+
+
+#endif /* __NDS_UTILS_H__ */

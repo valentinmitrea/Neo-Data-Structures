@@ -1,6 +1,6 @@
 /**
  * NDS - Neo Data Structures
- * Copyright (C) 2017-2017 MiVal Software
+ * Copyright (C) 2017-2018 MiVal Software
  *
  * This file is part of Neo Data Structures.
  *
@@ -25,64 +25,66 @@
  *
  * @author      Valentin Gabriel Mitrea <mitrea.valentin@gmail.com>
  * @created     13 July 2017
- * @modified    18 July 2017
+ * @modified    23 February 2018
  */
 
 #ifndef __NDS_VECTOR_H__
 #define __NDS_VECTOR_H__
 
+#include <nds/ndsutils.h>
+
 #include <stddef.h>
-
-
-typedef struct NdsVector NdsVector;
-typedef struct NdsVectorPrivate NdsVectorPrivate;
 
 
 struct NdsVector
 {
-	NdsVectorPrivate *private;
+	struct NdsVectorPrivate *private;
 };
+
+typedef struct NdsVector NdsVector;
 
 
 /**
- * Function that creates a new NdsVector.
+ * Function that creates a new NdsVector with an initial capacity of 10.
  *
- * CAUTION: Do not forget to call nds_vector_destroy() before exiting the scope
+ * NOTE: Do not forget to call nds_vector_destroy() before exiting the scope
  * of the current NdsVector in order to avoid memory leaks!
  *
  * @param     sizeof_element    size of one element in the vector
  *
- * @return    pointer to a new NdsVector structure or NULL if failure
+ * @return    valid pointer    successful initialization
+ *                     NULL    failure during initialization
  *
- * @complexity    depends on the complexity of the malloc() function
+ * @complexity    linear
  */
-extern NdsVector* nds_vector_new(size_t sizeof_element);
+NdsVector* nds_vector_new(size_t sizeof_element);
 
 
 /**
  * Function that creates a new NdsVector with a given initial capacity.
  *
- * CAUTION: Do not forget to call nds_vector_destroy() before exiting the scope
+ * NOTE: Do not forget to call nds_vector_destroy() before exiting the scope
  * of the current NdsVector in order to avoid memory leaks!
  *
  * @param     sizeof_element    size of one element in the vector
- * @param     capacity          the initial capacity of the vector
+ * @param           capacity    the initial capacity of the vector
  *
- * @return    pointer to a new NdsVector structure or NULL if failure
+ * @return    valid pointer    successful initialization
+ *                     NULL    failure during initialization
  *
- * @complexity    depends on the complexity of the malloc() function
+ * @complexity    linear
  */
-extern NdsVector* nds_vector_new_with_capacity(size_t sizeof_element, size_t capacity);
+NdsVector* nds_vector_new_with_capacity(size_t sizeof_element, size_t capacity);
 
 
 /**
- * Function that frees the memory occupied by the given NdsVector.
+ * Function that frees the memory occupied by the NdsVector.
  *
- * @param     vector    pointer to a NdsVector structure
+ * @param    vector    pointer to a NdsVector structure
  *
- * @complexity    depends on the complexity of the free() function
+ * @complexity    linear
  */
-extern void nds_vector_destroy(NdsVector *vector);
+void nds_vector_destroy(NdsVector *vector);
 
 
 /**
@@ -96,32 +98,82 @@ extern void nds_vector_destroy(NdsVector *vector);
  *
  * @complexity    constant
  */
-extern int nds_vector_is_empty(NdsVector *vector);
+int nds_vector_is_empty(NdsVector *vector);
 
 
 /**
- * Function that returns the current size of the given NdsVector.
+ * Function that returns the current size of the NdsVector.
  *
  * @param     vector    pointer to a NdsVector structure
  *
- * @return    the size of the NdsVector or -1 if the parameter is invalid
+ * @return    size    the size of the NdsVector
+ *              -1    the NdsVector is invalid
  *
  * @complexity    constant
  */
-extern int nds_vector_size(NdsVector *vector);
+int nds_vector_size(NdsVector *vector);
 
 
 /**
- * Function that returns the current capacity of the given NdsVector.
+ * Function that resizes the NdsVector container so that it contains size
+ * elements.
+ *
+ * @param     vector    pointer to a NdsVector structure
+ * @param       size    new size of the NdsVector
+ *
+ * @return                     NDS_OK    resize was successful
+ *            NDS_INVALID_PARAM_ERROR    invalid parameters for the function
+ *
+ * @complexity    linear
+ */
+NdsStatus nds_vector_resize(NdsVector *vector, size_t size);
+
+
+/**
+ * Function that returns the current capacity of the NdsVector.
  *
  * @param     vector    pointer to a NdsVector structure
  *
- * @return    the capacity of the NdsVector or -1 if the parameter is invalid
+ * @return    capacity    the capacity of the NdsVector
+ *                  -1    the NdsVector is invalid
  *
  * @complexity    constant
  */
-extern int nds_vector_capacity(NdsVector *vector);
+int nds_vector_capacity(NdsVector *vector);
+
+
+/**
+ * Function which requests that the given NdsVector will be able to fit
+ * capacity elements.
+ *
+ * NOTE: A reallocation happens only if the new capacity is larger than the
+ * current one. In all other cases, the capacity of the vector is not affected.
+ *
+ * @param       vector    pointer to a NdsVector structure
+ * @param     capacity    new capacity for the NdsVector
+ *
+ * @return                     NDS_OK    no changes or the reallocation was successful
+ *            NDS_INVALID_PARAM_ERROR    invalid parameters for the function
+ *                NDS_MEM_ALLOC_ERROR    memory allocation error
+ *
+ * @complexity    if reallocation happens, linear
+ */
+NdsStatus nds_vector_reserve(NdsVector *vector, size_t capacity);
+
+
+/**
+ * Function which requests that the given NdsVector reduces its capacity in
+ * order to be equal with its size.
+ *
+ * @param     vector      pointer to a NdsVector structure
+ *
+ * @return                     NDS_OK    shrink was successful
+ *            NDS_INVALID_PARAM_ERROR    invalid parameters for the function
+ *                NDS_MEM_ALLOC_ERROR    memory allocation error
+ *
+ * @complexity    linear on the size of the vector
+ */
+NdsStatus nds_vector_shrink_to_fit(NdsVector *vector);
 
 
 #endif /* __NDS_VECTOR_H__ */
-
